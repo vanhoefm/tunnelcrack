@@ -342,6 +342,7 @@
 		<h3><a name="papernotes" href="#papernotes">Paper Clarifications</a></h3>
 
 		<ul>
+			<li>Table 1 (Appendix): during our tests Mullvad on Android was always secure against the LocalNet attack, no matter what the LAN setting was, and should therefore have a green checkmark. </li>
 			<li>In Section 5.6.5 regarding Cisco AnyConnect, during the disclosure we were only able to replicate the leakage of packets on port 443. There were no observed leaks on other ports.</li>
 			<li>In Section 6.1.1 regarding defenses to the LocalNet attack, with "Disable local traffic" we don't mean blocking traffic. We mean that traffic to local IP addresses should also be sent through the VPN tunnel.</li>
 			<!-- TODO: Mark-down style code listing? -->
@@ -558,6 +559,15 @@
 		We think this is because previous research focused on the cryptographic aspects of VPNs, or focused on detecting
 		typically programming vulnerabilities in VPNs, but up until now no attention was given to the secure integration of
 		VPNs into a real-world system.
+		</p>
+
+		<p>
+		Note that in 2015, Andrew Ayer wrote the guide <a href="https://www.agwa.name/blog/post/hardening_openvpn_for_def_con">Hardening OpenVPN for DEF CON</a>
+		which hinted at the LocalNet attack. Following the guide would prevent the LocalNet attack, at least on Linux. However,
+		the ServerIP attack would still be possible when using domain names. Additionally, the guide did not test any existing
+		VPN clients, meaning it was unknown whether VPN clients were affected by the LocalNet attack. In our research, where we
+		tested around 248 VPN clients, we found that a large number of them were (still) vulnerable, and we notified a large number
+		of affected parties to ensure that their VPN clients will defend against the attack.
 		</p>
 
 		<h3><a name="notpatched" href="#notpatched">My VPN client isn't patched yet, what can I do?</a></h3>
