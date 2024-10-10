@@ -217,8 +217,10 @@
 		<p>
 		To defend against the attack, the VPN app should automatically disable local network access when the local network is using public IP addresses.
 		On most platforms this can be easily implemented.
-		On iOS this can be done by using the includeAllNetworks and excludeLocalNetworks APIs, unfortunately, using these APIs may cause reliability issues, making some vendors hesitant to adopt this defense on iOS.
-		Ideally, <strong>Apple should create a more robust API for VPNs on iOS</strong>, so that VPN apps can be implemented in a ore secure and reliable manner.
+		On iOS this can be done by using the includeAllNetworks and excludeLocalNetworks APIs.
+		Some vendors reported reliability issues when using these APIs, making some them hesitant to adopt this defense.
+		Ideally, Apple should create a more robust API for VPNs on iOS, or implement a more secure behaviour by default,
+		so that VPN apps can be implemented more securely without needing knowledge of these API parameters.
 		</p>
 
 		<h3><a name="serveripdetails" href="#serveripdetails" title="CVE-2023-36673 and CVE-2023-36671">ServerIP Attacks</a></h3>
@@ -346,7 +348,7 @@
 			<li>In Section 5.6.5 regarding Cisco AnyConnect, during the disclosure we were only able to replicate the leakage of packets on port 443. There were no observed leaks on other ports.</li>
 			<li>In Section 6.1.1 regarding defenses to the LocalNet attack, with "Disable local traffic" we don't mean blocking traffic. We mean that traffic to local IP addresses should also be sent through the VPN tunnel.</li>
 			<!-- TODO: Mark-down style code listing? -->
-			<li>In Section 5.4.2 regarding defenses to the LocalNet attack on iOS, before our disclosure only a few vendors used the includeAllNetworks and excludeLocalNetworks API parameters. We remark that the parameter excludeLocalNetworks only has an effect when includeAllNetworks is to True.</li>
+			<li>In Section 5.4.2 regarding defenses to the LocalNet attack on iOS, before our disclosure only a few vendors used the includeAllNetworks and excludeLocalNetworks API parameters. During the disclosure we recommended usage of the includeAllNetworks parameter to prevent the attack. We remark that the parameter excludeLocalNetworks only has an effect when includeAllNetworks is to True.</li>
 		</ul>
 
 		<h3><a name="usenixpres" href="#usenixpres">Presentations</a></h3>
@@ -639,9 +641,11 @@
 		<h3><a name="ioslocalnet" href="#ioslocalnet">Why is the LocalNet attack so hard to fix on iOS?</a></h3>
 		<p>
 		<!-- TODO -->
-		On iOS this can be done by using the includeAllNetworks and excludeLocalNetworks APIs, unfortunately, using these
-		APIs may cause reliability issues, making some vendors hesitant to adopt this defense.
-		Ideally, <strong>Apple should create a more robust API for VPNs on iOS</strong>, so that VPN apps can be implemented more securely and reliably.
+		On iOS this can be prevented by using the includeAllNetworks and excludeLocalNetworks APIs.
+		Some vendors reported reliability issues when using these APIs, but we were not able to replicate such issues.
+		Nevertheless, this made some vendors hesitant to adopt this defense.
+		Ideally, Apple should create a more robust API for VPNs on iOS, or implement a more secure behaviour by default,
+		so that VPN apps can be implemented more securely without needing knowledge of these API parameters.
 		</p>
 		
 		<h3><a name="demoblock" href="#demoblock">How did you block selected traffic in the demo?</a></h3>
